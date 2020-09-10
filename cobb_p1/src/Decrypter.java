@@ -6,49 +6,44 @@ Date Modified: 9/8/2020
 */
 public class Decrypter
 {
-	// Encrypts a string
-	public String decrypt(String inputcode)
+	public String decrypt(String inputCode)
 	{
-		// An integer array with allocated size of 4 bytes
-		int[] decryptarray = new int[inputcode.length()];
+		int[] inputCodeArray = new[inputCode.length()] int;
 
-		// Goes through each character of given string and adds it to the array
-		for(int i = 0; i < inputcode.length(); i++)
+		for(int i = 0; i < inputCode.length(); i++)
 		{
-			// Calls swap to get correct position to put the decrypted value
-			int position = swap(i);
-
-			decryptarray[position] = Character.getNumericValue(inputcode.charAt(i));
-			
-			// Changes value with decrypted value
-			decryptarray[position] = ((decryptarray[position] - 7) + 10) % 10;
+			int position = swapNumbers(i);
+			inputCodeArray[position] = Character.getNumericValue(inputCode.charAt(i));
+			inputCodeArray[position] = ((inputCodeArray[position] - 7) + 10) % 10;
 		}
 		
 
-		return(changetostring(decryptarray));
+		return(convertArrayToString(inputCodeArray));
 	}
 
-	// Obtains all values in a given integer array and puts it in a string
-	private String changetostring(int[] decryptarray)
+	/*
+	Converting an array to string using a built in java
+       	method did not format how the way I wanted.
+	This allows each element of the array to be added to
+	a single string without brackets or commas.
+	*/
+	private String convertArrayToString(int[] inputCodeArray)
 	{
-		StringBuilder decryptbuild = new StringBuilder();
+		StringBuilder buildDecryptString = new StringBuilder();
 		
-		// Adds each value of the array to the StringBuilder
-		for (int j : decryptarray)
+		for (int j : inputCodeArray)
 		{
-			decryptbuild.append(j);
+			buildDecryptString.append(j);
 		}
 		
-		return(decryptbuild.toString());
+		return(buildDecryptString.toString());
 	}
 
-	// Obtains a value and returns the correct value for the decryption position
-	// Ex: 1234 becomes 3412.
-	private int swap(int place)
+	private int swapNumbers(int place)
 	{
-		int calc = place % 4;
+		int calculate = place % 4;
 		
-		if(calc < 2)
+		if(calculate < 2)
 		{
 			return(place + 2);
 		}
