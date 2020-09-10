@@ -2,13 +2,13 @@
 Purpose: Decrypts any string whos length is a multiple of four
 Name: Anthony Cobb
 Date Created: 9/7/2020
-Date Modified: 9/8/2020
+Date Modified: 9/10/2020
 */
 public class Decrypter
 {
 	public String decrypt(String inputCode)
 	{
-		int[] inputCodeArray = new[inputCode.length()] int;
+		int[] inputCodeArray = new int[inputCode.length()];
 
 		for(int i = 0; i < inputCode.length(); i++)
 		{
@@ -23,7 +23,7 @@ public class Decrypter
 
 	/*
 	Converting an array to string using a built in java
-       	method did not format how the way I wanted.
+    method did not format how the way I wanted.
 	This allows each element of the array to be added to
 	a single string without brackets or commas.
 	*/
