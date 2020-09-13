@@ -2,8 +2,9 @@
 Purpose: Encrypts any string whos length is a multiple of four
 Name: Anthony Cobb
 Date Created: 9/7/2020
-Date Modified: 9/10/2020
+Date Modified: 9/13/2020
 */
+import java.lang.Math;
 public class Encrypter
 {
 	public String encrypt(String inputCode)
@@ -12,7 +13,10 @@ public class Encrypter
 
 		for(int i = 0; i < inputCode.length(); i++)
 		{
-			int position = swapNumbers(i);
+			/*
+			   I am unsure if I should initialize this integer within the for loop or outside.
+			*/
+			int position = encryptPosition(i);
 			inputCodeArray[position] = Character.getNumericValue(inputCode.charAt(i));
 			inputCodeArray[position] = (inputCodeArray[position] + 7) % 10;
 		}
@@ -22,10 +26,8 @@ public class Encrypter
 	}
 
 	/*
-	Converting an array to string using a built in java
-	method did not format how the way I wanted.
-	This allows each element of the array to be added to
-	a single string without brackets or commas.
+	   Converting an array to string using a built in java method did not format how I wanted.
+	   This allows each element of the array to be added to a single string without brackets or commas.
 	*/
 	private String convertArrayToString(int[] inputCodeArray)
 	{
@@ -39,17 +41,18 @@ public class Encrypter
 		return(buildEncryptString.toString());
 	}
 
-	private int swapNumbers(int place)
+	private int encryptPosition(int position)
 	{
-		int calculate = place % 4;
-		
-		if(calculate < 2)
-		{
-			return(place + 2);
-		}
-		else
-		{
-			return(place - 2);
-		}
+		/*
+		   I could put the entire formula in one integer, however,
+		   I wanted to try and make it clearer to read.
+		   I am unsure if that is good practice.
+		*/
+		int cycle = position / 2;
+		int modCycle = cycle % 2;
+		double state = Math.pow(-1, modCycle);
+		int newPosition = position + ((int)state * 2);
+
+		return newPosition;
 	}
 }
