@@ -11,8 +11,7 @@ public class Encrypter
 	{
 		int[] inputCodeArray = new int[inputCode.length()];
 
-		for(int i = 0; i < inputCode.length(); i++)
-		{
+		for(int i = 0; i < inputCode.length(); i++) {
 			/*
 			   I am unsure if I should initialize this integer within the for loop or outside.
 			*/
@@ -33,8 +32,7 @@ public class Encrypter
 	{
 		StringBuilder buildEncryptString = new StringBuilder();
 		
-		for (int j : inputCodeArray)
-		{
+		for (int j : inputCodeArray) {
 			buildEncryptString.append(j);
 		}
 		
