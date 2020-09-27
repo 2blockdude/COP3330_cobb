@@ -2,7 +2,7 @@
 Purpose: Calculates BMI score based on height and weight.
 Name: Anthony Cobb
 Date Created: 9/23/2020
-Date Modified: 9/25/2020
+Date Modified: 9/27/2020
 */
 public class BodyMassIndex
 {
@@ -42,16 +42,20 @@ public class BodyMassIndex
 
 	private void setCategory()
 	{
-		if(score < 18.5) {
+		if(score < 18.5)
+		{
 			category = "Underweight";
 		}
-		else if(score < 25) {
+		else if(score < 25)
+		{
 			category = "Normal weight";
 		}
-		else if(score < 30) {
+		else if(score < 30)
+		{
 			category = "Overweight";
 		}
-		else {
+		else
+		{
 			category = "Obesity";
 		}
 	}

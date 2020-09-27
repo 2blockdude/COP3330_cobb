@@ -2,7 +2,7 @@
 Purpose: App class for BodyMassIndex
 Name: Anthony Cobb
 Date Created: 9/23/2020
-Date Modified: 9/26/2020
+Date Modified: 9/27/2020
 */
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -15,7 +15,8 @@ public class App
 	{
 		ArrayList<BodyMassIndex> bmiData = new ArrayList<BodyMassIndex>();
 	
-		while (moreInput()) {
+		while (moreInput())
+		{
 			double height = getUserHeight();
 			double weight = getUserWeight();
 	
@@ -30,20 +31,24 @@ public class App
 
 	private static boolean moreInput()
 	{
-		while(true) {
+		while(true)
+		{
 			System.out.println("Would you like to add someone to the BMI list? (y/n)");
 			System.out.print(": ");
 
 			String userOption = input.nextLine();
 			
-			if(userOption.equalsIgnoreCase("y")) {
+			if(userOption.equalsIgnoreCase("y"))
+			{
 				System.out.println();
 				return true;
 			}
-			else if(userOption.equalsIgnoreCase("n")) {
+			else if(userOption.equalsIgnoreCase("n"))
+			{
 				return false;
 			}
-			else {
+			else
+			{
 				System.out.println("Invalid Option!");
 			}
 		}
@@ -63,16 +68,20 @@ public class App
 	{
 		double userInput;
 
-		while(true) {
+		while(true)
+		{
 			System.out.print(prompt);
-			try {
+			try
+			{
 				userInput = input.nextDouble();
-				if (userInput < 0) {
+				if (userInput < 0)
+				{
 					System.out.println("Input must be a positive value!");
 					continue;
 				}
 			}
-			catch(java.util.InputMismatchException e) {
+			catch(java.util.InputMismatchException e)
+			{
 				System.out.println("Invalid Input!");
 				input.nextLine();
 				continue;
@@ -109,7 +118,8 @@ public class App
 		System.out.println("---------------------------------------------");
 		
 		//I did not use an enhanced for loop in favor of an index
-		for(int i = 0; i < bmiData.size(); i++) {
+		for(int i = 0; i < bmiData.size(); i++)
+		{
 			/*
 			   Made four variables to make things appear cleaner.
 			   I am unsure if this is good practice.
