@@ -2,15 +2,14 @@
 Purpose: App class for BodyMassIndex
 Name: Anthony Cobb
 Date Created: 9/23/2020
-Date Modified: 9/25/2020
+Date Modified: 9/26/2020
 */
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App
 {
-	private static Scanner input = new Scanner(System.in);
-	private static boolean firstIteration = true;
+	private static final Scanner input = new Scanner(System.in);
 
 	public static void main(String[] args)
 	{
@@ -32,13 +31,8 @@ public class App
 	private static boolean moreInput()
 	{
 		while(true) {
-			if(firstIteration) {
-				System.out.println("Would you like to add someone to the BMI list? (y/n)");
-				firstIteration = false;
-			}
-			else {
-				System.out.println("Would you like to add another person to the BMI list? (y/n)");
-			}
+			System.out.println("Would you like to add someone to the BMI list? (y/n)");
+			System.out.print(": ");
 
 			String userOption = input.nextLine();
 			
@@ -51,44 +45,29 @@ public class App
 			}
 			else {
 				System.out.println("Invalid Option!");
-				continue;
 			}
 		}
 	}
 
 	private static double getUserHeight()
 	{
-		double userHeight;
-
-		while(true) {
-			System.out.print("Input the users height in inches: ");
-			try {
-				userHeight = input.nextDouble();
-				if (userHeight < 0) {
-					System.out.println("Input must be a positive value!");
-					continue;
-				}
-			}
-			catch(java.util.InputMismatchException e) {
-				System.out.println("Invalid Input!");
-				input.nextLine();
-				continue;
-			}
-
-			input.nextLine();
-			return userHeight;
-		}
+		return getUserInputPositiveDouble("Input the users height in inches: ");
 	}
 	
 	private static double getUserWeight()
 	{
-		double userWeight;
+		return getUserInputPositiveDouble("Input the users weight in pounds: ");
+	}
+
+	private static double getUserInputPositiveDouble(String prompt)
+	{
+		double userInput;
 
 		while(true) {
-			System.out.print("Input the users weight in pounds: ");
+			System.out.print(prompt);
 			try {
-				userWeight = input.nextDouble();
-				if (userWeight < 0) {
+				userInput = input.nextDouble();
+				if (userInput < 0) {
 					System.out.println("Input must be a positive value!");
 					continue;
 				}
@@ -100,7 +79,7 @@ public class App
 			}
 
 			input.nextLine();
-			return userWeight;
+			return userInput;
 		}
 	}
 
@@ -124,12 +103,12 @@ public class App
 		int arraySize = bmiData.size();
 
 		System.out.println();
-		System.out.println("Statistics");
+		System.out.println("BMI Statistics");
 		System.out.println("---------------------------------------------");
-		System.out.println("Index\t|Height\t|Weight\t|BMI\t|Category");
+		System.out.println("User\t|Height\t|Weight\t|BMI\t|Category");
 		System.out.println("---------------------------------------------");
 		
-		//I did not use an enhanced for loop so I could have an index
+		//I did not use an enhanced for loop in favor of an index
 		for(int i = 0; i < bmiData.size(); i++) {
 			/*
 			   Made four variables to make things appear cleaner.
@@ -144,7 +123,7 @@ public class App
 			weightAverage += w;
 			bmiAverage += s;
 
-			System.out.printf("%d\t:%.1f\t:%.1f\t:%.1f\t:%s\n", i + 1, h, w, s, c);
+			System.out.printf("User %d\t|%.1f\t|%.1f\t|%.1f\t|%s\n", i + 1, h, w, s, c);
 		}
 
 		heightAverage = heightAverage / arraySize;
@@ -152,6 +131,6 @@ public class App
 		bmiAverage = bmiAverage / arraySize;
 		
 		System.out.println("---------------------------------------------");
-		System.out.printf("Average\t:%.1f\t:%.1f\t:%.1f\n", heightAverage, weightAverage, bmiAverage);
+		System.out.printf("Average\t|%.1f\t|%.1f\t|%.1f\n", heightAverage, weightAverage, bmiAverage);
 	}
 }
