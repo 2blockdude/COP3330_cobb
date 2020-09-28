@@ -2,7 +2,7 @@
 Purpose: Calculates BMI score based on height and weight.
 Name: Anthony Cobb
 Date Created: 9/23/2020
-Date Modified: 9/27/2020
+Date Modified: 9/28/2020
 */
 public class BodyMassIndex
 {
@@ -13,9 +13,8 @@ public class BodyMassIndex
 
 	public BodyMassIndex(double height, double weight)
 	{
-		// Redundant value check to test shorthand if statements. Looks cool.
-		this.height = (height < 0) ? null : height;
-		this.weight = (weight < 0) ? null : weight;
+		this.height = height;
+		this.weight = weight;
 		this.score = 703 * weight / (height * height);
 		setCategory();
 	} 
