@@ -1,15 +1,19 @@
-public class ListItem
+public class TaskItem
 {
     private String title;
     private String description;
     private String dueDate;
     private boolean completed;
 
-    public ListItem(String title, String description, String dueDate)
+    public TaskItem(String title, String description, String dueDate)
     {
         setTitle(title);
         setDescription(description);
         setDueDate(dueDate);
+    }
+
+    public TaskItem()
+    {
     }
 
     public void setTitle(String title)

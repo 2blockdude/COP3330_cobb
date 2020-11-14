@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class App
 {
     private static final Scanner input = new Scanner(System.in);
-    private ListManager list = new ListManager();
+    private TaskList list;
 
     public App()
     {
@@ -13,30 +13,38 @@ public class App
 
     private void mainMenuLoop()
     {
-        loop:
+        menu:
         while (true)
         {
             printMainMenu();
-            switch (getOption(3))
+            switch (getOption("> ", 3))
             {
                 case 1:
-                    System.out.println("new task list has been created");
+                    list = new TaskList();
+                    System.out.println();
+                    System.out.println("New list created!");
                     listMenuLoop();
                     break;
                 case 2:
+                    list = new TaskList();
+                    list.importFromFile("somefile.txt");
+                    System.out.println();
+                    System.out.println("List imported successfully");
+                    listMenuLoop();
                     break;
                 case 3:
-                    break loop;
+                    break menu;
             }
         }
     }
 
     private void listMenuLoop()
     {
+        menu:
         while (true)
         {
             printListMenu();
-            switch (getOption(8))
+            switch (getOption("> ", 8))
             {
                 case 1:
                     printList();
@@ -45,8 +53,10 @@ public class App
                     addItemToList();
                     break;
                 case 3:
+                    editItemFromList();
                     break;
                 case 4:
+                    removeItemFromList();
                     break;
                 case 5:
                     break;
@@ -55,111 +65,115 @@ public class App
                 case 7:
                     break;
                 case 8:
-                    break;
+                    break menu;
             }
         }
     }
 
-    private void addItemToList()
+    private void removeItemFromList()
     {
-        ListItem l = getUserInputListItem();
-
-        if (l != null)
+        if (list.getList().size() > 0)
         {
-            list.addItem(l);
-            System.out.println("task added to list");
+            printList();
+            System.out.println();
+            int index = getOption("Which task could you like to remove: ", list.getList().size());
+
+            list.removeItem(index - 1);
+        }
+        else
+        {
+            System.out.println("No tasks to remove...");
         }
     }
 
     private void editItemFromList()
     {
-        ListItem l = getUserInputListItem();
-
-        if (l != null)
+        if (list.getList().size() > 0)
         {
+            try
+            {
+                printList();
+                System.out.println();
+                int index = getOption("Which task could you like to edit: ", list.getList().size());
+
+                String title = getUserInput("New task title: ");
+                String description = getUserInput("New task description: ");
+                String dueDate = getUserInput("New task due date: ");
+
+                list.editItem(index - 1, title, description, dueDate);
+            }
+            catch (InvalidTitleException e)
+            {
+                System.out.println("WARNING: title cannot be empty or contain a colon; edit not saved");
+            }
+            catch (InvalidDueDateException e)
+            {
+                System.out.println("WARNING: due date must be formatted 'YYYY-MM-DD'; edit not saved");
+            }
+        }
+        else
+        {
+            System.out.println("No tasks to edit...");
         }
     }
 
-    // asks for user input and returns an integer value from one to max num specified.
-    private int getOption(int numberOfOptions)
+    private void addItemToList()
     {
-        int optionSelect;
+        try
+        {
+            String title = getUserInput("Task title: ");
+            String description = getUserInput("Task description: ");
+            String dueDate = getUserInput("Task due date: ");
+
+            list.addItem(title, description, dueDate);
+        }
+        catch (InvalidTitleException e)
+        {
+            System.out.println("WARNING: title cannot be empty or contain a colon; task not created");
+        }
+        catch (InvalidDueDateException e)
+        {
+            System.out.println("WARNING: due date must be formatted 'YYYY-MM-DD'; task not created");
+        }
+    }
+
+    private String getUserInput(String prompt)
+    {
+        System.out.print(prompt);
+        return input.nextLine();
+    }
+
+    private int getOption(String prompt, int numOfOptions)
+    {
+        int intInput;
+
         while (true)
         {
-            System.out.print("> ");
+            System.out.print(prompt);
+
             try
             {
-                optionSelect = input.nextInt();
-                if (optionSelect > numberOfOptions || optionSelect < 1)
+                intInput = input.nextInt();
+
+                if (intInput > numOfOptions || intInput < 1)
                 {
-                    System.out.printf("Invalid Option! Pick options between 1 and %d!\n", numberOfOptions);
+                    System.out.printf("Input must be between 1 and %d\n", numOfOptions);
                 }
                 else
                 {
-                    input.nextLine();
-                    return optionSelect;
+                    break;
                 }
             }
             catch (InputMismatchException e)
             {
-                System.out.println("Invalid Option! Option must be integer value!");
+                System.out.println("Input invalid! Must be integer value!");
+            }
+            finally
+            {
                 input.nextLine();
             }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
         }
-    }
-
-    private ListItem getUserInputListItem()
-    {
-        ListItem item;
-
-        try
-        {
-            System.out.println();
-            String title = getUserInputListTitle();
-            String description = getUserInputListDescription();
-            String dueDate = getUserInputListDueDate();
-
-            item = new ListItem(title, description, dueDate);
-            return item;
-        }
-        catch (InvalidTitleException e)
-        {
-            System.out.println();
-            System.out.println("Invalid title! Title must be 1 character or longer and cannot contain a colon.");
-            System.out.println("Task not created...");
-            System.out.println();
-        }
-        catch (InvalidDueDateException e)
-        {
-            System.out.println();
-            System.out.println("Invalid due date! Due date must be formatted as 'YYYY-MM-DD'.");
-            System.out.println("Task not created...");
-            System.out.println();
-        }
-
-        return null;
-    }
-
-    private String getUserInputListTitle()
-    {
-        System.out.print("Task title: ");
-        return input.nextLine();
-    }
-
-    private String getUserInputListDescription()
-    {
-        System.out.print("Task description: ");
-        return input.nextLine();
-    }
-
-    private String getUserInputListDueDate()
-    {
-        System.out.print("Task due date (YYYY-MM-DD): ");
-        return input.nextLine();
+        return intInput;
     }
 
     private void printMainMenu()
@@ -199,36 +213,39 @@ public class App
         System.out.println();
         for (int i = 0; i < list.getList().size(); i++)
         {
-            System.out.printf("%d) " + list.getList().get(i), i + 1);
+            if (list.getList().get(i).isCompleted())
+                System.out.printf("%d) *** " + list.getList().get(i), i + 1);
+            else
+                System.out.printf("%d) " + list.getList().get(i), i + 1);
         }
         System.out.println();
     }
 
-    private void printListOfCompleted()
-    {
-        System.out.println();
-        System.out.println("Completed Tasks");
-        System.out.println("-------------");
-        System.out.println();
-        for (int i = 0; i < list.getListOfCompleted().size(); i++)
-        {
-            System.out.printf("%d) " + list.getListOfCompleted().get(i), i + 1);
-        }
-        System.out.println();
-    }
-
-    private void printListOfUncompleted()
-    {
-        System.out.println();
-        System.out.println("Uncompleted Tasks");
-        System.out.println("-------------");
-        System.out.println();
-        for (int i = 0; i < list.getListOfUncompleted().size(); i++)
-        {
-            System.out.printf("%d) " + list.getListOfUncompleted().get(i), i + 1);
-        }
-        System.out.println();
-    }
+//    private void printListOfCompleted()
+//    {
+//        System.out.println();
+//        System.out.println("Completed Tasks");
+//        System.out.println("-------------");
+//        System.out.println();
+//        for (int i = 0; i < list.getListOfCompleted().size(); i++)
+//        {
+//            System.out.printf("%d) " + list.getListOfCompleted().get(i), i + 1);
+//        }
+//        System.out.println();
+//    }
+//
+//    private void printListOfUncompleted()
+//    {
+//        System.out.println();
+//        System.out.println("Uncompleted Tasks");
+//        System.out.println("-------------");
+//        System.out.println();
+//        for (int i = 0; i < list.getListOfUncompleted().size(); i++)
+//        {
+//            System.out.printf("%d) " + list.getListOfUncompleted().get(i), i + 1);
+//        }
+//        System.out.println();
+//    }
 
     public static void main(String[] args)
     {
