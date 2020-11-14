@@ -5,42 +5,66 @@ public class ListItem
     private String dueDate;
     private boolean completed;
 
-    private void setTitle(String newTitle)
+    public ListItem(String title, String description, String dueDate)
     {
-        this.title = newTitle;
+        setTitle(title);
+        setDescription(description);
+        setDueDate(dueDate);
     }
 
-    private String getTitle()
+    public void setTitle(String title)
     {
-        return this.title;
+        if (isTitleValid(title))
+        {
+            this.title = title;
+        }
+        else
+        {
+            throw new InvalidTitleException("title not valid; title must be more than 1 character long and cannot contain ':'");
+        }
     }
 
-    private void setDescription(String newDescription)
+    public void setDescription(String description)
     {
-        this.description = newDescription;
+        this.description = description;
     }
 
-    private String getDescription()
+    public void setDueDate(String dueDate)
     {
-        return this.description;
+        if (isDueDateValid(dueDate))
+        {
+            this.dueDate = dueDate;
+        }
+        else
+        {
+            throw new InvalidDueDateException("due date not valid; due date must be in format YYYY-MM-DD");
+        }
     }
 
-    private void setDueDate(String newDueDate)
+    private boolean isTitleValid(String title)
     {
-        this.dueDate = newDueDate;
+        if (title.length() < 1)
+            return false;
+
+        if (title.contains(":"))
+            return false;
+
+        return true;
     }
 
-    private String getDueDate()
+    private boolean isDueDateValid(String dueDate)
     {
-        return this.dueDate;
+        // \\d means integer. {4} means repeat previous n times.
+        // \\d{4} means look for 4 characters and sees if they are an integer
+        return dueDate.matches("\\d{4}-\\d{2}-\\d{2}");
     }
 
-    private void setCompleted()
+    public void setCompleted(boolean newState)
     {
-        completed = !completed;
+        completed = newState;
     }
 
-    private boolean isCompleted()
+    public boolean isCompleted()
     {
         return completed;
     }
@@ -49,5 +73,17 @@ public class ListItem
     public String toString()
     {
         return "[" + this.dueDate + "]" + " " + this.title + ": " + this.description;
+    }
+}
+
+class InvalidTitleException extends IllegalArgumentException {
+    public InvalidTitleException(String msg) {
+        super(msg);
+    }
+}
+
+class InvalidDueDateException extends IllegalArgumentException {
+    public InvalidDueDateException(String msg) {
+        super(msg);
     }
 }
