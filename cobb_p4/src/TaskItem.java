@@ -45,6 +45,21 @@ public class TaskItem
         }
     }
 
+    public String getTitle()
+    {
+        return title;
+    }
+
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public String getDueDate()
+    {
+        return dueDate;
+    }
+
     private boolean isTitleValid(String title)
     {
         if (title.length() < 1)

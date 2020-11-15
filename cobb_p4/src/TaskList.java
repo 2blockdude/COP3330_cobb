@@ -16,42 +16,62 @@ public class TaskList
         tasks = new ArrayList<>();
     }
 
-    public void addItem(String title, String description, String dueDate)
+    public void addTask(String title, String description, String dueDate)
     {
         TaskItem l = new TaskItem(title, description, dueDate);
         tasks.add(l);
     }
 
-    public void addItem(TaskItem data)
+    public void addTask(TaskItem data)
     {
         tasks.add(data);
     }
 
-    public void removeItem(int item)
+    public void removeTask(int item)
     {
         tasks.remove(item);
     }
 
-    public void editItem(int item, String title, String description, String dueDate)
+    public void editTask(int item, String title, String description, String dueDate)
     {
-            tasks.get(item).setTitle(title);
-            tasks.get(item).setDescription(description);
-            tasks.get(item).setDueDate(dueDate);
+        tasks.get(item).setTitle(title);
+        tasks.get(item).setDescription(description);
+        tasks.get(item).setDueDate(dueDate);
     }
 
-    public void editItemTitle(int item, String title)
+    public void editTaskTitle(int item, String title)
     {
         tasks.get(item).setTitle(title);
     }
 
-    public void editItemDescription(int item, String description)
+    public void editTaskDescription(int item, String description)
     {
         tasks.get(item).setDescription(description);
     }
 
-    public void editItemDueDate(int item, String dueDate)
+    public void editTaskDueDate(int item, String dueDate)
     {
         tasks.get(item).setDueDate(dueDate);
+    }
+
+    public String getTask(int item)
+    {
+        return tasks.get(item).toString();
+    }
+
+    public String getTaskTitle(int item)
+    {
+        return tasks.get(item).getTitle();
+    }
+
+    public String getTaskDescription(int item)
+    {
+        return tasks.get(item).getDescription();
+    }
+
+    public String getTaskDueDate(int item)
+    {
+        return tasks.get(item).getDueDate();
     }
 
     public void markCompleted(int item)

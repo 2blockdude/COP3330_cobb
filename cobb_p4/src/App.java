@@ -170,7 +170,7 @@ public class App
             System.out.println();
             int index = getOption("Which task would you like to remove: ", list.getList().size());
 
-            list.removeItem(index - 1);
+            list.removeTask(index - 1);
         }
         else
         {
@@ -192,7 +192,7 @@ public class App
                 String description = getUserInput("New task description: ");
                 String dueDate = getUserInput("New task due date: ");
 
-                list.editItem(index - 1, title, description, dueDate);
+                list.editTask(index - 1, title, description, dueDate);
             }
             catch (InvalidTitleException e)
             {
@@ -217,7 +217,7 @@ public class App
             String description = getUserInput("Task description: ");
             String dueDate = getUserInput("Task due date: ");
 
-            list.addItem(title, description, dueDate);
+            list.addTask(title, description, dueDate);
         }
         catch (InvalidTitleException e)
         {
