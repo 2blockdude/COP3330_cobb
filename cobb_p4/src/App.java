@@ -25,7 +25,6 @@ public class App
                     break;
                 case 2:
                     importList();
-                    listMenuLoop();
                     break;
                 case 3:
                     break menu;
@@ -71,9 +70,13 @@ public class App
     private void importList()
     {
         list = new TaskList();
-        list.importFromFile(getUserInput("Enter the filename to load: "));
-        System.out.println();
-        System.out.println("task list has been loaded");
+        if (list.importFromFile(getUserInput("Enter the filename to load: ")) == 0)
+        {
+            System.out.println("task list has been loaded");
+            listMenuLoop();
+        }
+        else
+            System.out.println("task list failed to load...");
     }
 
     private void createNewList()
@@ -88,8 +91,10 @@ public class App
         if (list.getList().size() > 0)
         {
             String fileName = getUserInput("Name of file: ");
-            list.writeToFile(fileName);
-            System.out.println("List Saved!");
+            if (list.writeToFile(fileName) == 0)
+                System.out.println("List Saved!");
+            else
+                System.out.println("List failed to save...");
         }
         else
         {

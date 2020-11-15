@@ -91,7 +91,7 @@ public class TaskList
         return List.copyOf(l);
     }
 
-    public void writeToFile(String file)
+    public int writeToFile(String file)
     {
         try (Formatter output = new Formatter(file))
         {
@@ -102,18 +102,21 @@ public class TaskList
                 else
                     output.format("%s%n", item);
             }
+            return 0;
         }
         catch (FileNotFoundException e)
         {
             System.out.println("file not found!");
+            return 1;
         }
         catch (Exception e)
         {
             e.printStackTrace();
+            return 1;
         }
     }
 
-    public void importFromFile(String file)
+    public int importFromFile(String file)
     {
         TaskItem ti;
         List<String> data = new ArrayList<String>();
@@ -156,14 +159,17 @@ public class TaskList
                     System.out.printf("Could not import list Item - %s -. Cause: invalid due date\n", s);
                 }
             }
+            return 0;
         }
         catch (FileNotFoundException e)
         {
             System.out.println("file not found!");
+            return 1;
         }
         catch (Exception e)
         {
             e.printStackTrace();
+            return 1;
         }
     }
 }
