@@ -135,7 +135,8 @@ public class TaskList
 
                 // for title I needed to remove the completed indicator and the data
                 String title = parts[0].substring(parts[0].indexOf(']') + 2);
-                String description = parts[1];
+                // used substring to remove beginning space. I did not use trim because of reasons.
+                String description = parts[1].substring(1);
                 String dueDate = m.group(1);
 
                 try
