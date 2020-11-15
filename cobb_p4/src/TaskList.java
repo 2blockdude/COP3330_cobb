@@ -1,7 +1,11 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TaskList
 {
@@ -111,6 +115,54 @@ public class TaskList
 
     public void importFromFile(String file)
     {
+        TaskItem ti;
+        List<String> data = new ArrayList<String>();
 
+        try (Scanner fileReader = new Scanner(new File(file)))
+        {
+            while (fileReader.hasNextLine())
+            {
+                data.add(fileReader.nextLine());
+            }
+            for (String s : data)
+            {
+                // gets everything between the brackets
+                Matcher m = Pattern.compile("\\[(.*?)\\]").matcher(s);
+                m.find();
+
+                // splits the title and description from the colon and only splits from the first colon
+                String[] parts = s.split(":", 2);
+
+                // for title I needed to remove the completed indicator and the data
+                String title = parts[0].substring(parts[0].indexOf(']') + 2);
+                String description = parts[1];
+                String dueDate = m.group(1);
+
+                try
+                {
+                    ti = new TaskItem(title, description, dueDate);
+                    if (s.charAt(0) == '*')
+                        ti.setCompleted(true);
+
+                    tasks.add(ti);
+                }
+                catch (InvalidTitleException e)
+                {
+                    System.out.printf("Could not import list item - %s -. Cause: invalid title\n", s);
+                }
+                catch (InvalidDueDateException e)
+                {
+                    System.out.printf("Could not import list Item - %s -. Cause: invalid due date\n", s);
+                }
+            }
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("file not found!");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

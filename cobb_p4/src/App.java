@@ -20,16 +20,11 @@ public class App
             switch (getOption("> ", 3))
             {
                 case 1:
-                    list = new TaskList();
-                    System.out.println();
-                    System.out.println("New list created!");
+                    createNewList();
                     listMenuLoop();
                     break;
                 case 2:
-                    list = new TaskList();
-                    list.importFromFile("somefile.txt");
-                    System.out.println();
-                    System.out.println("List imported successfully");
+                    importList();
                     listMenuLoop();
                     break;
                 case 3:
@@ -73,6 +68,21 @@ public class App
         }
     }
 
+    private void importList()
+    {
+        list = new TaskList();
+        list.importFromFile(getUserInput("Enter the filename to load: "));
+        System.out.println();
+        System.out.println("task list has been loaded");
+    }
+
+    private void createNewList()
+    {
+        list = new TaskList();
+        System.out.println();
+        System.out.println("New list created!");
+    }
+
     private void saveCurrentList()
     {
         if (list.getList().size() > 0)
@@ -94,6 +104,7 @@ public class App
         if (sizeOfCompleted > 0)
         {
             printListOfCompleted();
+
             int fakeCount = 0;
             int[] realPosition = new int[sizeOfCompleted];
 
@@ -123,6 +134,7 @@ public class App
         if (sizeOfUncompleted > 0)
         {
             printListOfUncompleted();
+
             int fakeCount = 0;
             int[] realPosition = new int[sizeOfUncompleted];
 
