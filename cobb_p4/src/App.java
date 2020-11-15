@@ -59,14 +59,89 @@ public class App
                     removeItemFromList();
                     break;
                 case 5:
+                    markItemCompleted();
                     break;
                 case 6:
+                    markItemUncompleted();
                     break;
                 case 7:
+                    saveCurrentList();
                     break;
                 case 8:
                     break menu;
             }
+        }
+    }
+
+    private void saveCurrentList()
+    {
+        if (list.getList().size() > 0)
+        {
+            String fileName = getUserInput("Name of file: ");
+            list.writeToFile(fileName);
+            System.out.println("List Saved!");
+        }
+        else
+        {
+            System.out.println("Nothing to save...");
+        }
+    }
+
+    private void markItemUncompleted()
+    {
+        int sizeOfCompleted = list.getListOfCompleted().size();
+
+        if (sizeOfCompleted > 0)
+        {
+            printListOfCompleted();
+            int fakeCount = 0;
+            int[] realPosition = new int[sizeOfCompleted];
+
+            for (int i = 0; i < list.getList().size(); i++)
+            {
+                if (list.getList().get(i).isCompleted())
+                {
+                    realPosition[fakeCount] = i;
+                    fakeCount++;
+                }
+            }
+
+            int selected = getOption("Which task would you like to mark as uncomplete: ", sizeOfCompleted);
+            int index = realPosition[selected - 1];
+            list.markUncompleted(index);
+        }
+        else
+        {
+            System.out.println("No tasks to mark as uncomplete...");
+        }
+    }
+
+    private void markItemCompleted()
+    {
+        int sizeOfUncompleted = list.getListOfUncompleted().size();
+
+        if (sizeOfUncompleted > 0)
+        {
+            printListOfUncompleted();
+            int fakeCount = 0;
+            int[] realPosition = new int[sizeOfUncompleted];
+
+            for (int i = 0; i < list.getList().size(); i++)
+            {
+                if (!list.getList().get(i).isCompleted())
+                {
+                    realPosition[fakeCount] = i;
+                    fakeCount++;
+                }
+            }
+
+            int selected = getOption("Which task would you like to mark as complete: ", sizeOfUncompleted);
+            int index = realPosition[selected - 1];
+            list.markCompleted(index);
+        }
+        else
+        {
+            System.out.println("No tasks to mark as complete...");
         }
     }
 
@@ -76,7 +151,7 @@ public class App
         {
             printList();
             System.out.println();
-            int index = getOption("Which task could you like to remove: ", list.getList().size());
+            int index = getOption("Which task would you like to remove: ", list.getList().size());
 
             list.removeItem(index - 1);
         }
@@ -214,38 +289,38 @@ public class App
         for (int i = 0; i < list.getList().size(); i++)
         {
             if (list.getList().get(i).isCompleted())
-                System.out.printf("%d) *** " + list.getList().get(i), i + 1);
+                System.out.printf("%d) *** " + list.getList().get(i) + "\n", i + 1);
             else
-                System.out.printf("%d) " + list.getList().get(i), i + 1);
+                System.out.printf("%d) " + list.getList().get(i) + "\n", i + 1);
         }
         System.out.println();
     }
 
-//    private void printListOfCompleted()
-//    {
-//        System.out.println();
-//        System.out.println("Completed Tasks");
-//        System.out.println("-------------");
-//        System.out.println();
-//        for (int i = 0; i < list.getListOfCompleted().size(); i++)
-//        {
-//            System.out.printf("%d) " + list.getListOfCompleted().get(i), i + 1);
-//        }
-//        System.out.println();
-//    }
-//
-//    private void printListOfUncompleted()
-//    {
-//        System.out.println();
-//        System.out.println("Uncompleted Tasks");
-//        System.out.println("-------------");
-//        System.out.println();
-//        for (int i = 0; i < list.getListOfUncompleted().size(); i++)
-//        {
-//            System.out.printf("%d) " + list.getListOfUncompleted().get(i), i + 1);
-//        }
-//        System.out.println();
-//    }
+    private void printListOfCompleted()
+    {
+        System.out.println();
+        System.out.println("Completed Tasks");
+        System.out.println("-------------");
+        System.out.println();
+        for (int i = 0; i < list.getListOfCompleted().size(); i++)
+        {
+            System.out.printf("%d) " + list.getListOfCompleted().get(i) + "\n", i + 1);
+        }
+        System.out.println();
+    }
+
+    private void printListOfUncompleted()
+    {
+        System.out.println();
+        System.out.println("Uncompleted Tasks");
+        System.out.println("-------------");
+        System.out.println();
+        for (int i = 0; i < list.getListOfUncompleted().size(); i++)
+        {
+            System.out.printf("%d) " + list.getListOfUncompleted().get(i) + "\n", i + 1);
+        }
+        System.out.println();
+    }
 
     public static void main(String[] args)
     {

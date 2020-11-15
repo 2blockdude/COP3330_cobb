@@ -65,6 +65,28 @@ public class TaskList
         return List.copyOf(tasks);
     }
 
+    public List<TaskItem> getListOfCompleted()
+    {
+        List<TaskItem> l = new ArrayList<>();
+
+        for (TaskItem item : tasks)
+            if (item.isCompleted())
+                l.add(item);
+
+        return List.copyOf(l);
+    }
+
+    public List<TaskItem> getListOfUncompleted()
+    {
+        List<TaskItem> l = new ArrayList<>();
+
+        for (TaskItem item : tasks)
+            if (!item.isCompleted())
+                l.add(item);
+
+        return List.copyOf(l);
+    }
+
     public void writeToFile(String file)
     {
         try (Formatter output = new Formatter(file))
