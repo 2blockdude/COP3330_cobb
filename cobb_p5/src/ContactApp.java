@@ -108,7 +108,7 @@ public class ContactApp
         }
         else
         {
-            System.out.println("No tasks to remove...");
+            System.out.println("No contacts to remove...");
         }
     }
 
@@ -124,8 +124,8 @@ public class ContactApp
 
                 String firstName = getUserInput("New First Name: ");
                 String lastName = getUserInput("New Last Name: ");
-                String phone = getUserInput("New Phone: ");
-                String email = getUserInput("New Email: ");
+                String phone = getUserInput("New Phone Number (XXX-XXX-XXXX): ");
+                String email = getUserInput("New Email Address (x@y.z): ");
 
                 contactList.editContact(index - 1, firstName, lastName, phone, email);
             }
@@ -146,8 +146,8 @@ public class ContactApp
         {
             String firstName = getUserInput("First Name: ");
             String lastName = getUserInput("Last Name: ");
-            String phone = getUserInput("Phone: ");
-            String email = getUserInput("Email: ");
+            String phone = getUserInput("Phone Number (XXX-XXX-XXXX): ");
+            String email = getUserInput("Email Address (x@y.z): ");
 
             contactList.addContact(firstName, lastName, phone, email);
         }
