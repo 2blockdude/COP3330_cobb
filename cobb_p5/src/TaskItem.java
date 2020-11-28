@@ -7,17 +7,20 @@ public class TaskItem
 
     public TaskItem(String title, String description, String dueDate)
     {
-        if (isTitleValid(title))
+        if (isTitleValid(title) && isDueDateValid(dueDate))
+        {
             setTitle(title);
-        else
-            throw new InvalidTitleException("title not valid; title must be more than 1 character long and cannot contain ':'");
-
-        if (isDueDateValid(dueDate))
+            setDescription(description);
             setDueDate(dueDate);
-        else
+        }
+        else if (!isTitleValid(title))
+        {
+            throw new InvalidTitleException("title not valid; title must be more than 1 character long");
+        }
+        else if (!isDueDateValid(dueDate))
+        {
             throw new InvalidDueDateException("due date not valid; due date must be in format YYYY-MM-DD");
-
-        setDescription(description);
+        }
     }
 
     public TaskItem()
@@ -26,17 +29,20 @@ public class TaskItem
 
     public void updateItem(String title, String description, String dueDate)
     {
-        if (isTitleValid(title))
+        if (isTitleValid(title) && isDueDateValid(dueDate))
+        {
             setTitle(title);
-        else
-            throw new InvalidTitleException("title not valid; title must be more than 1 character long and cannot contain ':'");
-
-        if (isDueDateValid(dueDate))
+            setDescription(description);
             setDueDate(dueDate);
-        else
+        }
+        else if (!isTitleValid(title))
+        {
+            throw new InvalidTitleException("title not valid; title must be more than 1 character long");
+        }
+        else if (!isDueDateValid(dueDate))
+        {
             throw new InvalidDueDateException("due date not valid; due date must be in format YYYY-MM-DD");
-
-        setDescription(description);
+        }
     }
 
     public void setTitle(String title)
