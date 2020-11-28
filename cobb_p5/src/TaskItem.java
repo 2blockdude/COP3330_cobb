@@ -9,9 +9,9 @@ public class TaskItem
     {
         if (isTitleValid(title) && isDueDateValid(dueDate))
         {
-            setTitle(title);
-            setDescription(description);
-            setDueDate(dueDate);
+            this.title = title;
+            this.description = description;
+            this.dueDate = dueDate;
         }
         else if (!isTitleValid(title))
         {
@@ -31,9 +31,9 @@ public class TaskItem
     {
         if (isTitleValid(title) && isDueDateValid(dueDate))
         {
-            setTitle(title);
-            setDescription(description);
-            setDueDate(dueDate);
+            this.title = title;
+            this.description = description;
+            this.dueDate = dueDate;
         }
         else if (!isTitleValid(title))
         {
@@ -50,7 +50,7 @@ public class TaskItem
         if (isTitleValid(title))
             this.title = title;
         else
-            throw new InvalidTitleException("title not valid; title must be more than 1 character long and cannot contain ':'");
+            throw new InvalidTitleException("title not valid; title must be more than 1 character long");
     }
 
     public void setDescription(String description)
