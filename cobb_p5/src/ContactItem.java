@@ -9,7 +9,7 @@ public class ContactItem
     {
         if (firstName.isEmpty() && lastName.isEmpty() && phone.isEmpty() && email.isEmpty())
         {
-            throw new IllegalArgumentException("at least one parameter must be filled out!");
+            throw new IllegalArgumentException("WARNING: at least one parameter must be filled out!");
         }
         else
         {
@@ -20,13 +20,13 @@ public class ContactItem
                 this.phone = phone;
                 this.email = email;
             }
-            else if (!isEmailValid(email))
-            {
-                throw new IllegalArgumentException("email must be look like 'someone@domain.tld'");
-            }
             else if (!isPhoneValid(phone))
             {
-                throw new IllegalArgumentException("phone number must be in format NNN-NNN-NNNN");
+                throw new IllegalArgumentException("WARNING: phone number must be in format NNN-NNN-NNNN");
+            }
+            else if (!isEmailValid(email))
+            {
+                throw new IllegalArgumentException("WARNING: email must be look like 'someone@domain.tld'");
             }
         }
     }
@@ -39,7 +39,7 @@ public class ContactItem
     {
         if (firstName.isEmpty() && lastName.isEmpty() && phone.isEmpty() && email.isEmpty())
         {
-            throw new IllegalArgumentException("at least one parameter must be filled out!");
+            throw new IllegalArgumentException("WARNING: at least one parameter must be filled out!");
         }
         else
         {
@@ -50,13 +50,13 @@ public class ContactItem
                 this.phone = phone;
                 this.email = email;
             }
-            else if (!isEmailValid(email))
-            {
-                throw new IllegalArgumentException("email must be look like 'someone@domain.tld'");
-            }
             else if (!isPhoneValid(phone))
             {
-                throw new IllegalArgumentException("phone number must be in format NNN-NNN-NNNN");
+                throw new IllegalArgumentException("WARNING: phone number must be in format NNN-NNN-NNNN");
+            }
+            else if (!isEmailValid(email))
+            {
+                throw new IllegalArgumentException("WARNING: email must be look like 'someone@domain.tld'");
             }
         }
     }
@@ -99,7 +99,7 @@ public class ContactItem
         }
         else
         {
-            throw new IllegalArgumentException("phone number must be in format NNN-NNN-NNNN");
+            throw new IllegalArgumentException("WARNING: phone number must be in format NNN-NNN-NNNN");
         }
     }
 
@@ -111,17 +111,22 @@ public class ContactItem
         }
         else
         {
-            throw new IllegalArgumentException("email must be look like 'someone@domain.tld'");
+            throw new IllegalArgumentException("WARNING: email must be look like 'someone@domain.tld'");
         }
     }
 
     private boolean isPhoneValid(String phone)
     {
+        if (phone.isBlank())
+            return true;
+
         return phone.matches("\\d{3}-\\d{3}-\\d{4}");
     }
 
     private boolean isEmailValid(String email)
     {
+        if (email.isBlank())
+            return true;
         // got regex from internet
         return email.matches("^[a-zA-Z0-9_+&*-]+(?:\\."+
                 "[a-zA-Z0-9_+&*-]+)*@" +
