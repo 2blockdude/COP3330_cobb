@@ -26,7 +26,7 @@ public class ContactItem
             }
             else if (!isEmailValid(email))
             {
-                throw new IllegalArgumentException("WARNING: email must be look like 'someone@domain.tld'");
+                throw new IllegalArgumentException("WARNING: email must resemble 'x@y.z'");
             }
         }
     }
@@ -56,7 +56,7 @@ public class ContactItem
             }
             else if (!isEmailValid(email))
             {
-                throw new IllegalArgumentException("WARNING: email must be look like 'someone@domain.tld'");
+                throw new IllegalArgumentException("WARNING: email must resemble 'x@y.z'");
             }
         }
     }
@@ -111,7 +111,7 @@ public class ContactItem
         }
         else
         {
-            throw new IllegalArgumentException("WARNING: email must be look like 'someone@domain.tld'");
+            throw new IllegalArgumentException("WARNING: email must resemble 'x@y.z'");
         }
     }
 
