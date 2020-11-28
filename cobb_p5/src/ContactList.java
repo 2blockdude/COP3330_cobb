@@ -74,7 +74,7 @@ public class ContactList
         return contacts.get(index).getEmail();
     }
 
-    public List<ContactItem> getContactList()
+    public List<ContactItem> getList()
     {
         return List.copyOf(contacts);
     }
