@@ -35,7 +35,7 @@ public class ContactItem
     {
     }
 
-    public void updateContactItem(String firstName, String lastName, String phone, String email)
+    public void updateContact(String firstName, String lastName, String phone, String email)
     {
         if (firstName.isEmpty() && lastName.isEmpty() && phone.isEmpty() && email.isEmpty())
         {
