@@ -16,8 +16,7 @@ public class TaskList
 
     public void addTask(String title, String description, String dueDate)
     {
-        TaskItem l = new TaskItem(title, description, dueDate);
-        tasks.add(l);
+        tasks.add(new TaskItem(title, description, dueDate));
     }
 
     public void addTask(TaskItem data)
