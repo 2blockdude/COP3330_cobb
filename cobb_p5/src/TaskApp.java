@@ -194,13 +194,9 @@ public class TaskApp
 
                 list.editTask(index - 1, title, description, dueDate);
             }
-            catch (InvalidTitleException e)
+            catch (IllegalArgumentException e)
             {
-                System.out.println("WARNING: title cannot be empty; edit not saved");
-            }
-            catch (InvalidDueDateException e)
-            {
-                System.out.println("WARNING: due date must be formatted 'YYYY-MM-DD'; edit not saved");
+                System.out.println("WARNING: " + e.getMessage() + "; edit not saved");
             }
         }
         else
@@ -219,13 +215,9 @@ public class TaskApp
 
             list.addTask(title, description, dueDate);
         }
-        catch (InvalidTitleException e)
+        catch (IllegalArgumentException e)
         {
-            System.out.println("WARNING: title cannot be empty; task not created");
-        }
-        catch (InvalidDueDateException e)
-        {
-            System.out.println("WARNING: due date must be formatted 'YYYY-MM-DD'; task not created");
+            System.out.println("WARNING: " + e.getMessage() + "; task not saved");
         }
     }
 

@@ -10,7 +10,7 @@ class TaskItemTest
     @Test
     public void testInvalidDueDate1()
     {
-        assertThrows(InvalidDueDateException.class, new Executable() {
+        assertThrows(IllegalArgumentException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
                 TaskItem i = new TaskItem();
@@ -21,7 +21,7 @@ class TaskItemTest
     @Test
     public void testInvalidDueDate2()
     {
-        assertThrows(InvalidDueDateException.class, new Executable() {
+        assertThrows(IllegalArgumentException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
                 TaskItem i = new TaskItem();
@@ -32,7 +32,7 @@ class TaskItemTest
     @Test
     public void testInvalidDueDate3()
     {
-        assertThrows(InvalidDueDateException.class, new Executable() {
+        assertThrows(IllegalArgumentException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
                 TaskItem i = new TaskItem();
@@ -43,7 +43,7 @@ class TaskItemTest
     @Test
     public void testInvalidDueDate4()
     {
-        assertThrows(InvalidDueDateException.class, new Executable() {
+        assertThrows(IllegalArgumentException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
                 TaskItem i = new TaskItem();
@@ -54,7 +54,7 @@ class TaskItemTest
     @Test
     public void testInvalidDueDate5()
     {
-        assertThrows(InvalidDueDateException.class, new Executable() {
+        assertThrows(IllegalArgumentException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
                 TaskItem i = new TaskItem();
@@ -65,7 +65,7 @@ class TaskItemTest
     @Test
     public void testInvalidDueDate6()
     {
-        assertThrows(InvalidDueDateException.class, new Executable() {
+        assertThrows(IllegalArgumentException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
                 TaskItem i = new TaskItem("some title", "some description", "777m-77-77");
@@ -77,7 +77,7 @@ class TaskItemTest
     @Test
     public void testInvalidTitle1()
     {
-        assertThrows(InvalidTitleException.class, new Executable() {
+        assertThrows(IllegalArgumentException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
                 TaskItem i = new TaskItem();
@@ -88,7 +88,7 @@ class TaskItemTest
     @Test
     public void testInvalidTitle2()
     {
-        assertThrows(InvalidTitleException.class, new Executable() {
+        assertThrows(IllegalArgumentException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
                 TaskItem i = new TaskItem();
@@ -99,7 +99,7 @@ class TaskItemTest
     @Test
     public void testInvalidTitle3()
     {
-        assertThrows(InvalidTitleException.class, new Executable() {
+        assertThrows(IllegalArgumentException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
                 TaskItem i = new TaskItem("", "some description", "7777-77-77");

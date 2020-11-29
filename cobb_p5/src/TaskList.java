@@ -158,13 +158,11 @@ public class TaskList
 
                     tasks.add(ti);
                 }
-                catch (InvalidTitleException e)
+                catch (IllegalArgumentException e)
                 {
-                    System.out.printf("Could not import list item - %s -. Cause: invalid title\n", '[' + dueDate + "] " + title + ": " + description);
-                }
-                catch (InvalidDueDateException e)
-                {
-                    System.out.printf("Could not import list Item - %s -. Cause: invalid due date\n", "[" + dueDate + "] " + title + ": " + description);
+                    System.out.printf("Could not import list item - %s -. Cause: %s\n",
+                            '[' + dueDate + "] " + title + ": " + description,
+                            e.getMessage());
                 }
             }
             return 0;

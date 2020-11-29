@@ -15,11 +15,11 @@ public class TaskItem
         }
         else if (!isTitleValid(title))
         {
-            throw new InvalidTitleException("title not valid; title must be more than 1 character long");
+            throw new IllegalArgumentException("title not valid; title must be at least 1 character long");
         }
         else if (!isDueDateValid(dueDate))
         {
-            throw new InvalidDueDateException("due date not valid; due date must be in format YYYY-MM-DD");
+            throw new IllegalArgumentException("due date not valid; due date must be in format YYYY-MM-DD");
         }
     }
 
@@ -37,11 +37,11 @@ public class TaskItem
         }
         else if (!isTitleValid(title))
         {
-            throw new InvalidTitleException("title not valid; title must be more than 1 character long");
+            throw new IllegalArgumentException("title not valid; title must be at least 1 character long");
         }
         else if (!isDueDateValid(dueDate))
         {
-            throw new InvalidDueDateException("due date not valid; due date must be in format YYYY-MM-DD");
+            throw new IllegalArgumentException("due date not valid; due date must be in format YYYY-MM-DD");
         }
     }
 
@@ -50,7 +50,7 @@ public class TaskItem
         if (isTitleValid(title))
             this.title = title;
         else
-            throw new InvalidTitleException("title not valid; title must be more than 1 character long");
+            throw new IllegalArgumentException("title not valid; title must be at least 1 character long");
     }
 
     public void setDescription(String description)
@@ -63,7 +63,7 @@ public class TaskItem
         if (isDueDateValid(dueDate))
             this.dueDate = dueDate;
         else
-            throw new InvalidDueDateException("due date not valid; due date must be in format YYYY-MM-DD");
+            throw new IllegalArgumentException("due date not valid; due date must be in format YYYY-MM-DD");
     }
 
     public String getTitle()
@@ -107,17 +107,5 @@ public class TaskItem
     public String toString()
     {
         return "[" + this.dueDate + "]" + " " + this.title + ": " + this.description;
-    }
-}
-
-class InvalidTitleException extends IllegalArgumentException {
-    public InvalidTitleException(String msg) {
-        super(msg);
-    }
-}
-
-class InvalidDueDateException extends IllegalArgumentException {
-    public InvalidDueDateException(String msg) {
-        super(msg);
     }
 }
