@@ -232,17 +232,6 @@ class TaskListTest
         assertEquals(0, l.getList().size());
     }
 
-    // import task list from file
-    @Test
-    public void testImportingTaskListFromFile()
-    {
-        TaskList l = new TaskList();
-        assertEquals(0, l.getList().size());
-        // importfromfile returns 0 if the import was successful
-        assertEquals(0, l.importFromFile("list.txt"));
-        assertEquals(9, l.getList().size());
-    }
-
     // test write list to file
     @Test
     public void testWriteTaskListToFile()
@@ -254,6 +243,17 @@ class TaskListTest
         l.addTask("some title", "some description", "7777-77-77");
         // write to file returns 0 if the import was successful
         assertEquals(0, l.writeToFile("test.txt"));
+        assertEquals(3, l.getList().size());
+    }
+
+    // import task list from file
+    @Test
+    public void testImportingTaskListFromFile()
+    {
+        TaskList l = new TaskList();
+        assertEquals(0, l.getList().size());
+        // importfromfile returns 0 if the import was successful
+        assertEquals(0, l.importFromFile("test.txt"));
         assertEquals(3, l.getList().size());
     }
 }

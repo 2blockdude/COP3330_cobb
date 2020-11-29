@@ -2,7 +2,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TaskItemTest
 {
@@ -87,17 +86,6 @@ class TaskItemTest
     }
     @Test
     public void testInvalidTitle2()
-    {
-        assertThrows(IllegalArgumentException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                TaskItem i = new TaskItem();
-                i.setTitle("some:title");
-            }
-        });
-    }
-    @Test
-    public void testInvalidTitle3()
     {
         assertThrows(IllegalArgumentException.class, new Executable() {
             @Override
