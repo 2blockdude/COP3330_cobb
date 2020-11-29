@@ -88,7 +88,7 @@ public class ContactItem
 
     public void setLastName(String lastName)
     {
-        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public void setPhone(String phone)
